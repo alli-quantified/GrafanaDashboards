@@ -1,0 +1,640 @@
+{
+  "annotations": {
+    "list": []
+  },
+  "editable": true,
+  "gnetId": null,
+  "graphTooltip": 0,
+  "hideControls": false,
+  "id": 10,
+  "links": [],
+  "refresh": "1m",
+  "rows": [
+    {
+      "collapse": false,
+      "height": 237,
+      "panels": [
+        {
+          "alert": {
+            "conditions": [
+              {
+                "evaluator": {
+                  "params": [
+                    -6
+                  ],
+                  "type": "lt"
+                },
+                "operator": {
+                  "type": "and"
+                },
+                "query": {
+                  "params": [
+                    "A",
+                    "1m",
+                    "now"
+                  ]
+                },
+                "reducer": {
+                  "params": [],
+                  "type": "last"
+                },
+                "type": "query"
+              },
+              {
+                "evaluator": {
+                  "params": [
+                    8
+                  ],
+                  "type": "gt"
+                },
+                "operator": {
+                  "type": "or"
+                },
+                "query": {
+                  "params": [
+                    "A",
+                    "1m",
+                    "now"
+                  ]
+                },
+                "reducer": {
+                  "params": [],
+                  "type": "last"
+                },
+                "type": "query"
+              }
+            ],
+            "executionErrorState": "keep_state",
+            "frequency": "60s",
+            "handler": 1,
+            "message": "Alert! Mood is either high or low! beware!",
+            "name": "Today's Reported Mood alert",
+            "noDataState": "ok",
+            "notifications": []
+          },
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": "nomiedb",
+          "fill": 1,
+          "id": 4,
+          "legend": {
+            "avg": true,
+            "current": true,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": true
+          },
+          "lines": true,
+          "linewidth": 2,
+          "links": [],
+          "nullPointMode": "null as zero",
+          "percentage": false,
+          "pointradius": 1,
+          "points": true,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "spaceLength": 10,
+          "span": 12,
+          "stack": false,
+          "steppedLine": true,
+          "targets": [
+            {
+              "alias": "",
+              "format": "time_series",
+              "hide": false,
+              "rawSql": "SELECT \nUNIX_TIMESTAMP(e.date) AS time_sec\n, IF(e.value='None',0,e.value) AS value\n, 'mood' as metric \nfrom trackers t\ninner join events e on e.trackerid = t.trackerid \nand t.name like 'mood'\n",
+              "refId": "A"
+            }
+          ],
+          "thresholds": [
+            {
+              "colorMode": "critical",
+              "fill": true,
+              "line": true,
+              "op": "lt",
+              "value": -6
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Today's Reported Mood",
+          "tooltip": {
+            "shared": false,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": 100,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "decimals": null,
+              "format": "none",
+              "label": "",
+              "logBase": 1,
+              "max": "10",
+              "min": "-10",
+              "show": true
+            },
+            {
+              "decimals": null,
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": "10",
+              "min": "-10",
+              "show": false
+            }
+          ]
+        }
+      ],
+      "repeat": null,
+      "repeatIteration": null,
+      "repeatRowId": null,
+      "showTitle": false,
+      "title": "Dashboard Row",
+      "titleSize": "h6"
+    },
+    {
+      "collapse": false,
+      "height": 225,
+      "panels": [
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": "hrdb",
+          "fill": 3,
+          "hideTimeOverride": true,
+          "id": 28,
+          "legend": {
+            "avg": true,
+            "current": true,
+            "max": true,
+            "min": true,
+            "show": true,
+            "total": false,
+            "values": true
+          },
+          "lines": true,
+          "linewidth": 1,
+          "links": [],
+          "nullPointMode": "null",
+          "percentage": false,
+          "pointradius": 2,
+          "points": true,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "spaceLength": 10,
+          "span": 6,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "alias": "",
+              "format": "time_series",
+              "rawSql": "SELECT \nUNIX_TIMESTAMP(timestamp) AS time_sec\n, rate AS value\n, 'heartRate' as metric \nfrom events\nORDER BY timestamp ASC\n",
+              "refId": "A"
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeShift": "7h",
+          "title": "Heart Rate",
+          "tooltip": {
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": false,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ]
+        },
+        {
+          "columns": [],
+          "datasource": "hrdb",
+          "fontSize": "100%",
+          "id": 29,
+          "links": [],
+          "pageSize": null,
+          "scroll": true,
+          "showHeader": true,
+          "sort": {
+            "col": 0,
+            "desc": true
+          },
+          "span": 6,
+          "styles": [
+            {
+              "alias": "Time",
+              "dateFormat": "YYYY-MM-DD HH:mm:ss",
+              "pattern": "Time",
+              "type": "date"
+            },
+            {
+              "alias": "",
+              "colorMode": null,
+              "colors": [
+                "rgba(245, 54, 54, 0.9)",
+                "rgba(237, 129, 40, 0.89)",
+                "rgba(50, 172, 45, 0.97)"
+              ],
+              "decimals": 2,
+              "pattern": "/.*/",
+              "thresholds": [],
+              "type": "number",
+              "unit": "short"
+            }
+          ],
+          "targets": [
+            {
+              "alias": "",
+              "format": "time_series",
+              "rawSql": "SELECT \nUNIX_TIMESTAMP(timestamp) AS time_sec\n, rate AS value\n, 'heartRate' as metric \nfrom events\nORDER BY timestamp ASC\n",
+              "refId": "A"
+            }
+          ],
+          "title": "Latest HR Entries",
+          "transform": "timeseries_to_rows",
+          "type": "table"
+        }
+      ],
+      "repeat": null,
+      "repeatIteration": null,
+      "repeatRowId": null,
+      "showTitle": false,
+      "title": "Dashboard Row",
+      "titleSize": "h6"
+    },
+    {
+      "collapse": false,
+      "height": 213,
+      "panels": [
+        {
+          "cards": {
+            "cardPadding": 1,
+            "cardRound": 0
+          },
+          "color": {
+            "cardColor": "#b4ff00",
+            "colorScale": "sqrt",
+            "colorScheme": "interpolateRdPu",
+            "exponent": 0.5,
+            "max": 10,
+            "min": -10,
+            "mode": "spectrum"
+          },
+          "dataFormat": "timeseries",
+          "datasource": "nomiedb",
+          "heatmap": {},
+          "highlightCards": true,
+          "id": 27,
+          "legend": {
+            "show": true
+          },
+          "links": [],
+          "span": 12,
+          "targets": [
+            {
+              "alias": "",
+              "format": "time_series",
+              "hide": false,
+              "rawSql": "SELECT \nUNIX_TIMESTAMP(e.date) AS time_sec\n, IF(e.value='None',0,e.value) AS value\n, 'mood' as metric \nfrom trackers t\ninner join events e on e.trackerid = t.trackerid \nand t.name like 'mood'\nORDER BY e.date ASC\n",
+              "refId": "A"
+            },
+            {
+              "alias": "",
+              "format": "time_series",
+              "hide": true,
+              "rawSql": "select sum(a.rating) as value\n, dt AS time_sec\n, 'Positivity' as metric\nfrom (\nSELECT UNIX_TIMESTAMP(DATE(e.date)) as dt\n,t.defaultCharge \n,count(*) as cnt\n,count(*) * t.defaultCharge as rating\nFROM trackers AS t \nINNER JOIN events AS e ON e.trackerid = t.trackerid \nGROUP BY e.date\n,t.defaultCharge) a\ngroup by dt",
+              "refId": "B"
+            }
+          ],
+          "timeFrom": "1M",
+          "title": "Mood Heatmap",
+          "tooltip": {
+            "show": true,
+            "showHistogram": false
+          },
+          "type": "heatmap",
+          "xAxis": {
+            "show": true
+          },
+          "xBucketNumber": null,
+          "xBucketSize": null,
+          "yAxis": {
+            "decimals": null,
+            "format": "short",
+            "logBase": 1,
+            "max": "10",
+            "min": "-10",
+            "show": true,
+            "splitFactor": null
+          },
+          "yBucketNumber": null,
+          "yBucketSize": null
+        }
+      ],
+      "repeat": null,
+      "repeatIteration": null,
+      "repeatRowId": null,
+      "showTitle": false,
+      "title": "Dashboard Row",
+      "titleSize": "h6"
+    },
+    {
+      "collapse": false,
+      "height": 250,
+      "panels": [
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": "nomiedb",
+          "fill": 4,
+          "id": 5,
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 2,
+          "links": [],
+          "nullPointMode": "null as zero",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "spaceLength": 10,
+          "span": 12,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "alias": "",
+              "format": "time_series",
+              "hide": false,
+              "rawSql": "select sum(a.rating) as value\n, dt AS time_sec\n, 'Positivity' as metric\nfrom (\nSELECT UNIX_TIMESTAMP(DATE(e.date)) as dt\n,t.defaultCharge \n,count(*) as cnt\n,count(*) * t.defaultCharge as rating\nFROM trackers AS t \nINNER JOIN events AS e ON e.trackerid = t.trackerid \nGROUP BY e.date\n,t.defaultCharge) a\ngroup by dt",
+              "refId": "A"
+            },
+            {
+              "alias": "",
+              "format": "time_series",
+              "rawSql": "SELECT \nUNIX_TIMESTAMP(e.date) AS time_sec\n, IF(e.value='None',0,e.value) AS value\n, 'mood' as metric \nfrom trackers t\ninner join events e on e.trackerid = t.trackerid \nand t.name like 'mood'",
+              "refId": "B"
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": "1M",
+          "timeShift": null,
+          "title": "Historical Score",
+          "tooltip": {
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ]
+        }
+      ],
+      "repeat": null,
+      "repeatIteration": null,
+      "repeatRowId": null,
+      "showTitle": false,
+      "title": "Dashboard Row",
+      "titleSize": "h6"
+    },
+    {
+      "collapse": false,
+      "height": 256,
+      "panels": [
+        {
+          "columns": [],
+          "datasource": "nomiedb",
+          "fontSize": "100%",
+          "id": 1,
+          "links": [],
+          "pageSize": null,
+          "scroll": true,
+          "showHeader": true,
+          "sort": {
+            "col": 0,
+            "desc": true
+          },
+          "span": 6,
+          "styles": [
+            {
+              "alias": "Time",
+              "dateFormat": "YYYY-MM-DD HH:mm:ss",
+              "pattern": "Time",
+              "type": "date"
+            },
+            {
+              "alias": "",
+              "colorMode": null,
+              "colors": [
+                "rgba(245, 54, 54, 0.9)",
+                "rgba(237, 129, 40, 0.89)",
+                "rgba(50, 172, 45, 0.97)"
+              ],
+              "dateFormat": "YYYY-MM-DD HH:mm:ss",
+              "decimals": 0,
+              "pattern": "defaultCharge",
+              "thresholds": [],
+              "type": "number",
+              "unit": "short"
+            },
+            {
+              "alias": "",
+              "colorMode": null,
+              "colors": [
+                "rgba(245, 54, 54, 0.9)",
+                "rgba(237, 129, 40, 0.89)",
+                "rgba(50, 172, 45, 0.97)"
+              ],
+              "decimals": 2,
+              "pattern": "/.*/",
+              "thresholds": [],
+              "type": "number",
+              "unit": "short"
+            }
+          ],
+          "targets": [
+            {
+              "alias": "",
+              "format": "table",
+              "rawSql": "SELECT \nDATE_FORMAT(e.date,'%H:%i:%s') as TrackerTime\n, t.name\n, t.defaultCharge\n, IF(e.value='None',0,e.value) AS value\nfrom events as e\ninner join trackers as t on t.trackerid = e.trackerid \nWHERE e.date like CONCAT(CURDATE(), '%')\norder by e.date desc",
+              "refId": "A"
+            }
+          ],
+          "timeFrom": "1d",
+          "title": "Most Recent Events",
+          "transform": "table",
+          "type": "table"
+        },
+        {
+          "columns": [],
+          "datasource": "nomiedb",
+          "fontSize": "100%",
+          "id": 6,
+          "links": [],
+          "pageSize": null,
+          "scroll": true,
+          "showHeader": true,
+          "sort": {
+            "col": 1,
+            "desc": true
+          },
+          "span": 6,
+          "styles": [
+            {
+              "alias": "Time",
+              "dateFormat": "YYYY-MM-DD HH:mm:ss",
+              "pattern": "Time",
+              "type": "date"
+            },
+            {
+              "alias": "",
+              "colorMode": null,
+              "colors": [
+                "rgba(245, 54, 54, 0.9)",
+                "rgba(237, 129, 40, 0.89)",
+                "rgba(50, 172, 45, 0.97)"
+              ],
+              "dateFormat": "YYYY-MM-DD HH:mm:ss",
+              "decimals": 0,
+              "pattern": "NumberTracked",
+              "thresholds": [],
+              "type": "number",
+              "unit": "short"
+            },
+            {
+              "alias": "",
+              "colorMode": null,
+              "colors": [
+                "rgba(245, 54, 54, 0.9)",
+                "rgba(237, 129, 40, 0.89)",
+                "rgba(50, 172, 45, 0.97)"
+              ],
+              "decimals": 2,
+              "pattern": "/.*/",
+              "thresholds": [],
+              "type": "number",
+              "unit": "short"
+            }
+          ],
+          "targets": [
+            {
+              "alias": "",
+              "format": "table",
+              "rawSql": "SELECT t.name\n, count(*) AS NumberTracked\n, AVG(e.value) AS AvgTrackedValue\nFROM events AS e\ninner join trackers AS t ON t.trackerid = e.trackerid\nGROUP BY t.name\nORDER BY t.name asc",
+              "refId": "A"
+            }
+          ],
+          "title": "Today's Most Tracked Events",
+          "transform": "table",
+          "type": "table"
+        }
+      ],
+      "repeat": null,
+      "repeatIteration": null,
+      "repeatRowId": null,
+      "showTitle": false,
+      "title": "Dashboard Row",
+      "titleSize": "h6"
+    }
+  ],
+  "schemaVersion": 14,
+  "style": "dark",
+  "tags": [],
+  "templating": {
+    "list": []
+  },
+  "time": {
+    "from": "now/d",
+    "to": "now"
+  },
+  "timepicker": {
+    "refresh_intervals": [
+      "1m"
+    ],
+    "time_options": [
+      "5m",
+      "15m",
+      "1h",
+      "6h",
+      "12h",
+      "24h",
+      "2d",
+      "7d",
+      "30d"
+    ]
+  },
+  "timezone": "",
+  "title": "Erin Test Board",
+  "version": 40
+}
